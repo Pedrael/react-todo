@@ -1,5 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
+
+import React, { useState, useEffect, Component, Fragment } from "react"
+import MСlassComponent from './MClass'
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
         >
           Learn React
         </a>
+        <MСlassComponent external="ExternalString" />
       </header>
     </div>
   );
