@@ -16,12 +16,31 @@ export default class MСlassComponent extends Component {
     })
   }
 
+  componentDidMount() {
+    console.log('component mounted')
+    this.randomfield = 'did mount randomfield'
+    this.setState({
+        classProp: 'did mount'
+      })
+    this.setState((state, props) => ({
+      classProp2: state.classProp + ' is classProp2'
+    }))
+  }
+
+  componentWillUnmount() {
+    console.log('component unmounted')
+    this.randomfield = 'did unmount randomfield'
+  }
+
   render() {
     return (
       <Fragment>
         <input value={this.state.classProp} onChange={this.changeProp}></input>
         <p>{this.state.classProp}</p>
+        <p>{this.state.classProp2}</p>
         <p>{this.props.external}</p>
+        <p>{this.randomfield}</p>
+        <p>_____________________________</p>
       </Fragment>
     )
   }

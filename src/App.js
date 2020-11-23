@@ -5,6 +5,9 @@ import React, { useState, useEffect, Component, Fragment } from "react"
 import MСlassComponent from './MClass'
 
 function App() {
+
+  const numbers = [1, 2, 3]
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +23,9 @@ function App() {
         >
           Learn React
         </a>
-        <MСlassComponent external="ExternalString" />
+        {numbers.map((number) => {
+          return <MСlassComponent key = {number} external={"ExternalString" + number} />
+        })}
       </header>
     </div>
   );
