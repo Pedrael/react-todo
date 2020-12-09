@@ -1,0 +1,9 @@
+@import "../variables.scss";
+
+.button {
+  background: $main-color;
+
+  &:hover {
+    background: $orange;
+  }
+}
