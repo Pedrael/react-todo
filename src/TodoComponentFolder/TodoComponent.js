@@ -23,7 +23,7 @@ export default class TodoComponent extends Component {
 
   removeNote = (e) => {
     console.log('click', this.state.index)
-    this.props.removeNote(this.state.index)
+    this.props.removeNote(e, this.state.index)
   }
 
   render() {
