@@ -5,14 +5,17 @@ import React from "react"
 import MСlassComponent from './MClass'
 import MainLayout from './MainLayoutFolder/MainLayout'
 
+import { Provider } from 'react-redux';
+import store from './store/store.js'
+
 function App() {
 
-  const numbers = [1, 2, 3]
-
   return (
-    <div className="App">
-      <MainLayout />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <MainLayout />
+      </div>
+    </Provider>
       // <header className="App-header">
       //   <img src={logo} className="App-logo" alt="logo" />
       //   <p>

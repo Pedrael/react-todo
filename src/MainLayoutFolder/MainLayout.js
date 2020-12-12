@@ -3,6 +3,7 @@ import './MainLayoutStyle.scss'
 import React, { Component, Fragment } from "react"
 
 import TodoComponent from '../TodoComponentFolder/TodoComponent.js'
+import { useSelector } from 'react-redux'
 
 export default class MainLayout extends Component {
 
@@ -43,7 +44,6 @@ export default class MainLayout extends Component {
   removeNote(e, i) {
     var array = [...this.state.todosList] // make a separate copy of the array
     if (i !== -1) {
-      console.log('i', i)
       array.splice(i, 1)
       this.setState({
         todosList: [...array]
