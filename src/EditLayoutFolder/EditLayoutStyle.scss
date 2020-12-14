@@ -1,0 +1,75 @@
+@import "../variables.scss";
+
+.layout {
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  .edit-container {
+    border-radius: 16px;
+    padding: 30px 0;
+    width: #{'min(400px, 90vw)'};
+    height: #{'min(600px, 90vh)'};
+    background: $main-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    &::-webkit-scrollbar { display: none; }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    .input {
+      background: $secondary-color;
+      border-radius: 8px;
+      border: none;
+      height: 30px;
+      max-width: 40vw;
+      padding: 0 20px;
+      font-family: inherit;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.todos {
+  flex-direction: column;
+  .input {
+    width: 70%;
+  }
+}
+
+.wrap, .todos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: #{'min(350px, 70vw)'};
+  margin: 10px 0;
+}
+
+.end {
+  margin-top: auto;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  .button {
+    margin: 10px;
+    flex-grow: 1;
+  }
+}
+
+.checkbox {
+  background: $red;
+}
+
+.checked {
+  background: $green;
+}
+
+.tech-button {
+  background: $secondary-color;
+  &:hover {
+    background: $orange;
+  }
+}

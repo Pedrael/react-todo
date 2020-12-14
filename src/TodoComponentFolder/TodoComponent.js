@@ -1,6 +1,7 @@
 import './TodoComponentStyle.scss'
 
 import React, { Component, Fragment } from "react"
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,21 +10,18 @@ export default class TodoComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      todo: {todos: []},
-      index: -1
+      todo: {todos: []}
     }
   }
 
   componentDidMount() {
     this.setState({
         todo: this.props.todo,
-        index: this.props.index
     })
   }
 
   removeNote = (e) => {
-    console.log('click', this.state.index)
-    this.props.removeNote(e, this.state.index)
+    this.props.removeNote(e, this.state.todo.uniqueid)
   }
 
   render() {
@@ -32,9 +30,11 @@ export default class TodoComponent extends Component {
       <div className="note-body">
         <div className="upper">
 
-          <h2 className="name">{this.state.todo.name} ({this.state.index})</h2>
+          <h2 className="name">{this.state.todo.name} ({this.state.todo.uniqueid})</h2>
           <div className="action-array">
-            <div className="circle"><FontAwesomeIcon icon={faPencilAlt} /></div>
+            <Link to={'/edit/'+this.props.todo.uniqueid}>
+              <div className="circle"><FontAwesomeIcon icon={faPencilAlt} /></div>
+            </Link>
             <div className="circle" onClick={this.removeNote}><FontAwesomeIcon icon={faTrashAlt} /></div>
           </div>
         </div>

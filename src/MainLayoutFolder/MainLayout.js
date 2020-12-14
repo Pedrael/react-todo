@@ -12,7 +12,7 @@ export default class MainLayout extends Component {
     this.state = {
       todosList: [{ // array of notes
         name: 'StoreTest111',
-        uniqueid: '00',
+        uniqueid: '0',
         todos: [
           { text: 'lorem ipsum', isChecked: true },
           { text: 'text2', isChecked: false },
@@ -21,7 +21,7 @@ export default class MainLayout extends Component {
       },
       {
         name: 'StoreTest2222222',
-        uniqueid: '01',
+        uniqueid: '1',
         todos: [
           { text: 'text1', isChecked: true },
           { text: 'text2', isChecked: false },
@@ -30,7 +30,7 @@ export default class MainLayout extends Component {
       },
       {
         name: 'StoreTest33333333',
-        uniqueid: '02',
+        uniqueid: '2',
         todos: [
           { text: 'text1', isChecked: true },
           { text: 'text2', isChecked: false },
@@ -44,7 +44,8 @@ export default class MainLayout extends Component {
   removeNote(e, i) {
     var array = [...this.state.todosList] // make a separate copy of the array
     if (i !== -1) {
-      array.splice(i, 1)
+      array = array.filter(item => item.uniqueid != i)
+      //array.splice(i, 1)
       this.setState({
         todosList: [...array]
       }, () => {console.log(this.state.todosList, array)})
@@ -57,7 +58,6 @@ export default class MainLayout extends Component {
       { this.state.todosList.map((todo, index) => {
         return <TodoComponent
           todo = {todo}
-          index = {index}
           key = {todo.uniqueid}
           removeNote = {this.removeNote} />
       })}
