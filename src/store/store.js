@@ -16,9 +16,14 @@ import { createStore } from 'redux'
 let todoReducer = (state, action) => {
   switch (action.type) {
     case "SET_STATE":
-        return state.merge(action.state)
+        return state
     case "ADD_TODO":
         return state.update("todoState", (todos) => todos.push(action.todo))
+    case "FLUSH":
+        return {
+          ...state,
+          todoState: state.todoState.concat(action.newItem)
+        }
 
     default: return state
   }
@@ -26,30 +31,30 @@ let todoReducer = (state, action) => {
 
 const initialState = {
   todoState: [{ // array of notes
-    name: 'StoreTest111',
-    uniqueid: '00',
+    name: 'ReduxStoreTest1',
+    uniqueid: '0',
     todos: [
-      { text: 'lorem ipsum', isChecked: true },
-      { text: 'text2', isChecked: false },
-      { text: 'text1', isChecked: true }
+      { text: 'lorem ipsum', isChecked: true, uniqueid: '0' },
+      { text: 'text2', isChecked: false, uniqueid: '1' },
+      { text: 'text1', isChecked: true, uniqueid: '2' }
     ]
   },
   {
-    name: 'StoreTest2222222',
-    uniqueid: '01',
+    name: 'ReduxStoreTest2',
+    uniqueid: '1',
     todos: [
-      { text: 'text1', isChecked: true },
-      { text: 'text2', isChecked: false },
-      { text: 'text1', isChecked: false }
+      { text: 'text1', isChecked: true, uniqueid: '0' },
+      { text: 'text2', isChecked: false, uniqueid: '1' },
+      { text: 'text1', isChecked: false, uniqueid: '2' }
     ]
   },
   {
-    name: 'StoreTest33333333',
-    uniqueid: '02',
+    name: 'ReduxStoreTest3',
+    uniqueid: '2',
     todos: [
-      { text: 'text1', isChecked: true },
-      { text: 'text2', isChecked: false },
-      { text: 'text1', isChecked: false }
+      { text: 'text1', isChecked: true, uniqueid: '0' },
+      { text: 'text2', isChecked: false, uniqueid: '1' },
+      { text: 'text1', isChecked: false, uniqueid: '2' }
     ]
   }]
 }
@@ -57,6 +62,10 @@ const initialState = {
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
 const store = createStore(todoReducer, initialState)
+
+store.subscribe(() => { console.log(store.getState()) })
+
+// store.dispatch({ type: 'SET_STATE' })
 
 export default store
 

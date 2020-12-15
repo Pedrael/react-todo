@@ -2,7 +2,7 @@ import './App.scss'
 
 import React from "react"
 import MainLayout from './MainLayoutFolder/MainLayout'
-import Editlayout from './EditLayoutFolder/EditLayout'
+import EditLayout from './EditLayoutFolder/EditLayout'
 
 import { Provider } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -16,7 +16,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' component={MainLayout}/>
-            <Route path='/edit/:id' component={Editlayout}/>
+            <Route path='/edit/:id' component={EditLayout}/>
           </Switch>
         </BrowserRouter>
       </div>
