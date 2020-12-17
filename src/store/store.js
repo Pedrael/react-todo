@@ -16,13 +16,23 @@ import { createStore } from 'redux'
 let todoReducer = (state, action) => {
   switch (action.type) {
     case "SET_STATE":
-        return state
+        return {
+          ...state
+        }
     case "ADD_TODO":
-        return state.update("todoState", (todos) => todos.push(action.todo))
-    case "FLUSH":
         return {
           ...state,
           todoState: state.todoState.concat(action.newItem)
+        }
+    case "REMOVE_TODO":
+        return {
+          ...state,
+          todoState: state.todoState.filter((item) => item.uniqueid != action.uniqueid)
+        }
+    case "FLUSH":
+        return {
+          ...state,
+          todoState: []
         }
 
     default: return state
@@ -68,26 +78,3 @@ store.subscribe(() => { console.log(store.getState()) })
 // store.dispatch({ type: 'SET_STATE' })
 
 export default store
-
-// You can use subscribe() to update the UI in response to state changes.
-// Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
-// There may be additional use cases where it's helpful to subscribe as well.
-
-//store.subscribe(() => console.log(store.getState()))
-
-// The only way to mutate the internal state is to dispatch an action.
-// The actions can be serialized, logged or stored and later replayed.
-// store.dispatch({ type: 'counter/incremented' })
-// // {value: 1}
-// store.dispatch({ type: 'counter/incremented' })
-// // {value: 2}
-// store.dispatch({ type: 'counter/decremented' })
-// {value: 1}
-
-// function createStore(reducer, initialState) {
-//     let state = initialState
-//     return {
-//         dispatch: action => { state = reducer(state, action) },
-//         getState: () => state,
-//     }
-// }

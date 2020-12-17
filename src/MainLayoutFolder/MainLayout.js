@@ -11,7 +11,7 @@ function MainLayout() {
   const dispatch = useDispatch()
 
     return (
-      <div className="layout" onClick = {() => dispatch({ type: 'FLUSH', newItem: {
+      <div className="layout"> {/*() => dispatch({ type: 'FLUSH', newItem: {
         name: 'ReduxStoreTest1',
         uniqueid: '0',
         todos: [
@@ -19,11 +19,13 @@ function MainLayout() {
           { text: 'text2', isChecked: false, uniqueid: '1' },
           { text: 'text1', isChecked: true, uniqueid: '2' }
         ]
-        } })} >
-      { todosList.map((todo, index) => {
+      } })*/}
+      { todosList.length == 0 ?
+        <p>List is empty!</p> :
+        todosList.map((todo, index) => {
         return <TodoComponent
           todo = {todo}
-          key = {todo.uniqueid} />
+          key = {todo.uniqueid}/>
       })}
       </div>
     )
