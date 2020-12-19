@@ -13,7 +13,7 @@ export default function TodoComponent(props) {
   let todo = props.todo
 
   let removeNote = () => {
-    dispatch({ type: 'REMOVE_TODO', uniqueid: todo.uniqueid})
+    dispatch({ type: 'REMOVE_TODOITEM', uniqueid: todo.uniqueid})
   }
 
   return (

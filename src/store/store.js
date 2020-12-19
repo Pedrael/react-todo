@@ -13,28 +13,44 @@ import { createStore } from 'redux'
  * we use a switch statement, but it's not required.
  */
 
+ let getArrayWithChange = (array, index, newValue) => {
+   let newArray = [...array]
+   newArray[index] = newValue
+   return newArray // TODO: array.prototype
+ }
+
+ // Object.defineProperty(Array.prototype, 'changeItem', {
+ //     value: function(index, newValue) {
+ //       return [].concat(this)
+ //    }
+ // });
+
 let todoReducer = (state, action) => {
   switch (action.type) {
     case "SET_STATE":
         return {
           ...state
         }
-    case "ADD_TODO":
+    case "ADD_TODOITEM":
         return {
           ...state,
           todoState: state.todoState.concat(action.newItem)
         }
-    case "REMOVE_TODO":
+    case "REMOVE_TODOITEM":
         return {
           ...state,
-          todoState: state.todoState.filter((item) => item.uniqueid != action.uniqueid)
+          todoState: state.todoState.filter((item) => item.uniqueid !== action.uniqueid)
+        }
+    case "CHANGE_TODOITEM":
+        return {
+          ...state,
+          todoState: getArrayWithChange(state.todoState, action.index, action.editedItem)
         }
     case "FLUSH":
         return {
           ...state,
           todoState: []
         }
-
     default: return state
   }
 }
@@ -73,7 +89,7 @@ const initialState = {
 // Its API is { subscribe, dispatch, getState }.
 const store = createStore(todoReducer, initialState)
 
-store.subscribe(() => { console.log(store.getState()) })
+store.subscribe(() => { console.log(store.getState(), "STATE SUBSCRIBE") })
 
 // store.dispatch({ type: 'SET_STATE' })
 

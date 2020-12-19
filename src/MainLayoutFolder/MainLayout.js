@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import TodoComponent from '../TodoComponentFolder/TodoComponent.js'
 import { useSelector, useDispatch } from 'react-redux'
 
-function MainLayout() {
+export default function MainLayout(props) {
 
   let todosList = useSelector(state => state.todoState)
   const dispatch = useDispatch()
@@ -30,5 +30,3 @@ function MainLayout() {
       </div>
     )
 }
-
-export default MainLayout
