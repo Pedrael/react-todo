@@ -1,4 +1,4 @@
-import './MainLayoutStyle.scss'
+//import './MainLayoutStyle.scss'
 
 import React, { useState } from "react"
 
