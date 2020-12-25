@@ -1,10 +1,10 @@
 import './TodoComponentStyle.scss'
 
-import React, { useEffect, useState, Fragment } from "react"
+import React, { Fragment } from "react"
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export default function TodoComponent(props) {
 

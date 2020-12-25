@@ -1,8 +1,8 @@
 import './EditLayoutStyle.scss'
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faCheck, faPlus, faSave, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,13 +11,18 @@ export default function EditLayout(props) {
   let getArrayWithChange = (array, index, newValue) => {
     let newArray = [...array]
     newArray[index] = newValue
-    console.log(newArray)
     return newArray // TODO: array.prototype
+  }
+
+  let getArrayWithChangeByUniqueId = (array, id, newValue) => {
+    let newArray = [...array]
+    newArray[newArray.findIndex((item) => item.uniqueid === id)] = newValue
+    return newArray
   }
 
   const [todosItem, changeItem] = useState(
     useSelector(
-      state => state.todoState.filter(item => item.uniqueid === props.match.params.id)[0]
+      state => state.todoState.filter(item => item.uniqueid == props.match.params.id)[0]
     ))
   const [newTodo, changeNewTodo] = useState({text: "", isChecked: false, uniqueid: todosItem.todos.length})//{text: 'lorem ipsum', isChecked: true, uniqueid: '0'}
   const dispatch = useDispatch()
@@ -33,6 +38,13 @@ export default function EditLayout(props) {
     dispatch({ type: 'REMOVE_TODOITEM', uniqueid: todosItem.uniqueid})
     history.push("/")
   }
+
+  useEffect(() => {
+    let newId = todosItem.todos.length == 0 ? 0 : todosItem.todos[todosItem.todos.length - 1].uniqueid + 1
+    changeNewTodo(Object.assign({}, newTodo, {
+      text: "", isChecked: false, uniqueid: newId
+    }))
+  }, [todosItem.todos.length])
 
   return (
 
@@ -57,9 +69,9 @@ export default function EditLayout(props) {
                   value={todo.text}
                   onChange={
                     (e) => changeItem(Object.assign({}, todosItem, {
-                      todos: getArrayWithChange(
+                      todos: getArrayWithChangeByUniqueId(
                         todosItem.todos,
-                        index,
+                        todo.uniqueid,
                         Object.assign({}, todo, { text: e.target.value }))
                       }
                     ))
@@ -67,9 +79,9 @@ export default function EditLayout(props) {
                   <div className={todo.isChecked ? "checked checkbox circle" : "checkbox circle"}
                   onClick={
                     (e) => changeItem(Object.assign({}, todosItem, {
-                      todos: getArrayWithChange(
+                      todos: getArrayWithChangeByUniqueId(
                         todosItem.todos,
-                        index,
+                        todo.uniqueid,
                         Object.assign({}, todo, { isChecked: !todo.isChecked }))
                       }
                     ))
@@ -104,9 +116,6 @@ export default function EditLayout(props) {
                 (e) => {
                   changeItem(Object.assign({}, todosItem, {
                     todos: todosItem.todos.concat(newTodo)
-                  }))
-                  changeNewTodo(Object.assign({}, newTodo, {
-                    text: "", isChecked: false, uniqueid: todosItem.todos.length
                   }))
                 }
               }> {/* add new todo button */}

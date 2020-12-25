@@ -19,11 +19,11 @@ import { createStore } from 'redux'
    return newArray // TODO: array.prototype
  }
 
- // Object.defineProperty(Array.prototype, 'changeItem', {
- //     value: function(index, newValue) {
- //       return [].concat(this)
- //    }
- // });
+ let getArrayWithChangeByUniqueId = (array, id, newValue) => {
+   let newArray = [...array]
+   newArray[newArray.findIndex((item) => item.uniqueid == id)] = newValue
+   return newArray // TODO: array.prototype
+ }
 
 let todoReducer = (state, action) => {
   switch (action.type) {
@@ -44,7 +44,7 @@ let todoReducer = (state, action) => {
     case "CHANGE_TODOITEM":
         return {
           ...state,
-          todoState: getArrayWithChange(state.todoState, action.index, action.editedItem)
+          todoState: getArrayWithChangeByUniqueId(state.todoState, action.index, action.editedItem)
         }
     case "FLUSH":
         return {
@@ -58,29 +58,29 @@ let todoReducer = (state, action) => {
 const initialState = {
   todoState: [{ // array of notes
     name: 'ReduxStoreTest1',
-    uniqueid: '0',
+    uniqueid: 0,
     todos: [
-      { text: 'lorem ipsum', isChecked: true, uniqueid: '0' },
-      { text: 'text2', isChecked: false, uniqueid: '1' },
-      { text: 'text1', isChecked: true, uniqueid: '2' }
+      { text: 'lorem ipsum', isChecked: true, uniqueid: 0 },
+      { text: 'text2', isChecked: false, uniqueid: 1 },
+      { text: 'text1', isChecked: true, uniqueid: 2 }
     ]
   },
   {
     name: 'ReduxStoreTest2',
-    uniqueid: '1',
+    uniqueid: 1,
     todos: [
-      { text: 'text1', isChecked: true, uniqueid: '0' },
-      { text: 'text2', isChecked: false, uniqueid: '1' },
-      { text: 'text1', isChecked: false, uniqueid: '2' }
+      { text: 'text1', isChecked: true, uniqueid: 0 },
+      { text: 'text2', isChecked: false, uniqueid: 1 },
+      { text: 'text1', isChecked: false, uniqueid: 2 }
     ]
   },
   {
     name: 'ReduxStoreTest3',
-    uniqueid: '2',
+    uniqueid: 2,
     todos: [
-      { text: 'text1', isChecked: true, uniqueid: '0' },
-      { text: 'text2', isChecked: false, uniqueid: '1' },
-      { text: 'text1', isChecked: false, uniqueid: '2' }
+      { text: 'text1', isChecked: true, uniqueid: 0 },
+      { text: 'text2', isChecked: false, uniqueid: 1 },
+      { text: 'text1', isChecked: false, uniqueid: 2 }
     ]
   }]
 }
