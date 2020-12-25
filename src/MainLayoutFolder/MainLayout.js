@@ -21,7 +21,7 @@ export default function MainLayout(props) {
       uniqueid: newId,
       todos: []
     }})
-    //history.push("/edit/"+newId)
+    history.push("/edit/"+newId)
   }
 
     return (
